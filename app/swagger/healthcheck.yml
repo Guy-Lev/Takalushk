@@ -1,0 +1,10 @@
+Healthcheck
+Check if App is ready to serve requests
+---
+tags:
+  - Healthcheck
+responses:
+  200:
+    description: App is healthy
+  500:
+    description: App is not healthy

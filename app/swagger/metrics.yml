@@ -1,0 +1,10 @@
+Metrics
+metrics data
+---
+tags:
+  - metrics
+responses:
+  200:
+    description: Metrics Data
+  500:
+    description: Server Error
