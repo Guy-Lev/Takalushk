@@ -17,6 +17,7 @@ def clean(ctx,stage="before"):
     run("docker-compose kill", echo=True)
     run("docker-compose rm -f", echo=True)
     run("docker rm -f app app_db", echo=True, warn=True)
+    run("docker rmi app", echo=True, warn=True)
 
 
 @task
@@ -45,7 +46,7 @@ def docker_artifactory_login(ctx):
 @task(pre=[docker_artifactory_login], aliases=["build"])
 def build_local_app(ctx):
     '''Build local instance of application in docker with associated DB'''
-    run('docker build .', echo=True)
+    run('docker build . -t app', echo=True)
     run('docker-compose up -d  && docker-compose logs -f --tail="all" &', echo=True)
     wait_for_server_to_be_up()
 

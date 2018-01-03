@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer
 from sqlalchemy.dialects import mysql
 
-from .. import DB
+from . import DB
 
 
 class Server(DB.Model):
@@ -27,3 +27,5 @@ class FileTestCount(DB.Model):
     __tablename__ = "file_test_count"
     id = Column(Integer, primary_key=True)
     file_id = Column(Integer, DB.ForeignKey("files.id"))
+    test_name = Column(mysql.types.VARCHAR(256))
+    count = Column(Integer)

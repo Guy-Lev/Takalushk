@@ -2,7 +2,7 @@ version: '2'
 services:
   app:
     container_name: app
-    build: .
+    image: app
     ports:
       - "9000:8080"
     environment:
