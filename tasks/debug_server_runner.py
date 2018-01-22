@@ -17,7 +17,7 @@ def mock_api(args):
 
 
 def run_app():
-    app.run(port=7917, host="0.0.0.0")
+    app.run(port=7918, host="0.0.0.0")
 
 
 if __name__ == '__main__':

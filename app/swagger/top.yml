@@ -1,0 +1,49 @@
+
+Given a pull request, List the tests which ran the most on the modified files
+---
+tags:
+  - Top
+parameters:
+  - name: repo
+    type: string
+    in: query
+    required: true
+    description: The github repository name
+  - name: prid
+    type: int
+    in: query
+    required: true
+    description: The pull request ID
+responses:
+
+  200:
+    description: A message with the number of pull requests TakalushK handled.
+    schema:
+      id: top_reponse
+      type: object
+      description: A Json object with Key/Value pairs containing a list of test names, which ran the most on the modified files.
+
+  400:
+    description: At least one of the required params are missing.
+    schema:
+      id: missing_param_error
+      type: object
+      description: Json object with a single Key/Value pair containing the error message.
+
+  404:
+    description: Could not get pull request from github.
+    schema:
+      id: pr_not_found
+      type: object
+      description: Json object with a single Key/Value pair containing the error message - including github error if exists.
+
+  500:
+    description: Could get the count due to an internal server error.
+    schema:
+      id: internal_error
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: The internal error message

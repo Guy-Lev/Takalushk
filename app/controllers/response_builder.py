@@ -22,6 +22,10 @@ def server_error(body, status_code=500):
     return response(body, status_code)
 
 
+def not_found(body, status_code=404):
+    return response(body, status_code)
+
+
 def response(body, status_code):
     validate_message(body)
 

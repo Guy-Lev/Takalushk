@@ -11,7 +11,7 @@ from app.controllers.metrics_controller import MetricsController
 from app.lib.performance_metrics import register_metrics_reporter
 from app.routes import create_routes
 from .app_init import app
-from .controllers.response_builder import ok, bad_request
+from .controllers.response_builder import ok, bad_request, not_found
 from .models.schema import File, Test, HandledPull, TestCount, Repo
 from .models import create_db, db_upgrade
 from flask import request
@@ -87,7 +87,7 @@ def get_top():
         repo = org.get_repo(repo_name)
         pull = repo.get_pull(int(prid))
     except Exception as e:
-        return bad_request({"message" :"Could not find pull request with id {} in {}".format(prid, repo_name), "github-error" : str(e) })
+        return not_found({"message" :"Could not find pull request with id {} in {}".format(prid, repo_name), "github-error" : str(e) })
 
     file_paths = [f._filename.value for f in pull.get_files()]
     tests = db.session.query(Test).join(TestCount).join(File).join(Repo)\

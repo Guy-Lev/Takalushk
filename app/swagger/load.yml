@@ -1,0 +1,53 @@
+
+Trigger a task to load pull requests from a github repo and count which tests ran on what files.
+There can be only one loading task running at a time.
+---
+tags:
+  - Load
+parameters:
+  - name: repo
+    type: string
+    in: query
+    required: true
+    description: The github repository name
+  - name: direction
+    type: string
+    in: query
+    required: false
+    description: [asc or desc] The direction which the pull requests will be read from github.
+                 asc is the default value (old pr's will be handled first).
+
+  - name: stop_on_handled
+    type: boolean
+    in: query
+    required: false
+    description: If true, the loading task will stop when reaching a pull request that was already handled.
+                 This is usfull when loading a few new pull requests (when direction is 'desc').
+                 True by default.
+
+responses:
+  200:
+    description: The response of the started load job.
+    schema:
+      id: load_reponse
+      type: object
+      description: Json object with a single Key/Value pair containing the load task response.
+                   If the task is rejected, an explination will be given to the user in the response message.
+
+  400:
+    description: At least one of the required params are missing.
+    schema:
+      id: missing_param_error
+      type: object
+      description: Json object with a single Key/Value pair containing the error message.
+
+  500:
+    description: Could get the count due to an internal server error.
+    schema:
+      id: internal_error
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: The internal error message

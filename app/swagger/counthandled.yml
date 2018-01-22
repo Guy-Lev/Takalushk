@@ -1,0 +1,36 @@
+
+Get the number of handled pull requests for a specified repo
+---
+tags:
+  - Count
+parameters:
+  - name: repo
+    type: string
+    in: query
+    required: true
+    description: The github repository name that is in question
+responses:
+  200:
+    description: A message with the number of pull requests TakalushK handled.
+    schema:
+      id: count_reponse
+      type: object
+      description: A Json object with a single Key/Value pair containing the message.
+
+  400:
+    description: At least one of the required params are missing.
+    schema:
+      id: missing_param_error
+      type: object
+      description: Json object with a single Key/Value pair containing the error message.
+
+  500:
+    description: Could get the count due to an internal server error.
+    schema:
+      id: internal_error
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: The internal error message
